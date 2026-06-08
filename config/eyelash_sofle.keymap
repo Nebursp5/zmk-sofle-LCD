@@ -507,56 +507,147 @@
 			display-name = "BASE";
 		};
 
+		// Navigation Layer1:
 		layer_1 {
-            bindings = <
-&kp GRAVE   &kp F1           &kp F2          &kp F3           &kp F4           &kp F5             &mmv MOVE_UP     &kp F6           &kp F7           &kp F8      &kp F9     &kp F10           &trans
-&trans      &kp GRAVE        &mkp LCLK       &mkp MCLK        &mkp RCLK        &mkp MB4           &mmv MOVE_DOWN   &kp PG_UP        &kp END          &kp UP      &kp HOME   &kp MINUS         &kp EQUAL
-&trans      &kp TILDE        &trans          &trans           &trans           &mkp MB5           &mmv MOVE_LEFT   &kp PG_DN        &kp LEFT         &kp DOWN    &kp RIGHT  &kp LEFT_BRACKET  &kp RIGHT_BRACKET
-&trans      &rgb_ug RGB_OFF  &rgb_ug RGB_ON  &rgb_ug RGB_EFF  &rgb_ug RGB_EFR  &rgb_ug RGB_SPI    &mmv MOVE_RIGHT  &rgb_ug RGB_BRI  &rgb_ug RGB_BRD  &kp INSERT  &kp F11    &kp F12           &trans
-&kp C_MUTE  &trans           &trans          &trans           &trans           &trans             &mkp LCLK        &trans           &trans           &trans      &trans     &trans
-            >;
+			bindings = <
+			/* + _Navegation Layer1: Apps Navigation / dwm (verde) Pendientes:
+			.-----------.-----------.-----------.-----------.-----------.-----------.                          .-----------.-----------.-----------.-----------.-----------.-----------.
+			|           |           |           |           |           |           |                          |           |           |           |           |           |           |
+			|-----------+-----------+-----------+-----------+-----------+-----------|                          |-----------+-----------+-----------+-----------+-----------+-----------|
+			|           |           |           |           |           |           |                          |           |           |           |           |           |           |
+			|-----------+-----------+-----------+-----------+-----------+-----------|                          |-----------+-----------+-----------+-----------+-----------+-----------|
+			|           |           |           |           |           |           |                          |           |           |           |           |           |           |
+			|-----------+-----------+-----------+-----------+-----------+-----------|                          |-----------+-----------+-----------+-----------+-----------+-----------|
+			|           |           |           |           |           | Menu KC_app|ya deberia estar          |           |           |           |           |           |           |
+			'-----------'-----------+-----------+-----------+-----------'-----------'                          '-----------'-----------+-----------+-----------+-----------'-----------'
+			|                       |           |           |.-----------.-----------.--------.      .--------.-----------.-----------.|           |           |
+			|                       |           |           ||           |           |        |      |        |           |           ||           |           |
+			|                       '-----------'-----------'|           |           |        |      |        |           |           |'-----------'-----------'
+			|                                                '-----------'-----------'--------'      '--------'-----------'-----------' */
+			// Configuracion L1 Row 1
+			// ╭────────────────┬─────────────┬───────────────┬──────────────┬───────────────┬──────────────────╮          ╭───────────────╮       ╭──────────────┬─────────────┬──────────────┬─────────────┬───────────────┬─────────────╮
+				 &kp GRAVE        &kp LG(N1)    &kp LG(N2)      &kp LG(N3)     &kp LG(N4)      &kp LG(N5)                    &mmv MOVE_UP            &kp LG(N6)     &kp LG(N7)    &kp LG(N8)     &kp LG(N9)    &kp LG(TAB)     &kp LG(COMMA)
+			// ├────────────────┼─────────────┼───────────────┼──────────────┼───────────────┼──────────────────┤          ├───────────────┤       ├──────────────┼─────────────┼──────────────┼─────────────┼───────────────┼─────────────┤
+				 &kp C_AC_BACK    &kp LA(F4)    &msc SCRL_LEFT  &mmv MOVE_UP   &msc SCRL_UP    &kp LS(DELETE)                &mmv MOVE_DOWN          &kp LG(K)      &kp HOME      &kp UP         &kp PG_UP     &kp RC(PG_UP)   &kp LG(DOT)
+			// ├────────────────┼─────────────┼───────────────┼──────────────┼───────────────┼──────────────────┤          ├───────────────┤       ├──────────────┼─────────────┼──────────────┼─────────────┼───────────────┼─────────────┤
+				 &kp C_AC_FORWARD &kp RC(F4)    &mmv MOVE_LEFT  &mkp MCLK      &mmv MOVE_RIGHT &kp RC(INSERT)                &mmv MOVE_LEFT          &kp LG(ENTER)  &kp LEFT      &kp LS(INSERT) &kp RIGHT     &kp RC(TAB)     &kp LA(TAB)
+			// ├────────────────┼─────────────┼───────────────┼──────────────┼───────────────┼──────────────────┤          ├───────────────┤       ├──────────────┼─────────────┼──────────────┼─────────────┼───────────────┼─────────────┤
+				 &___             &kp LG(LS(C)) &msc SCRL_RIGHT &mmv MOVE_DOWN &msc SCRL_DOWN  &kp K_CONTEXT_MENU            &mmv MOVE_RIGHT         &kp LG(J)      &kp END       &kp DOWN       &kp PG_DN     &kp RC(PG_DN)   &___
+			// ╰┬─────────────┬─┴─────────────┼───────────────┼──────────────┼───────────────┼──────────────────┼───────╮  ┼──────────╮╭───┴───────┼──────────────┼─────────────┼──────────────┼─────────────┼───────────────┼─────────────╯
+				  &kp C_MUTE                    &mkp RCLK       &mkp LCLK      &mkp RCLK       &mkp LCLK          &kp TAB    &mkp LCLK   &kp ESCAPE  &mkp LCLK      &mkp RCLK        &kp INSERT     &kp DELETE
+			//  ╰──────────╯                  ╰───────────────┴──────────────┴───────────────┴──────────────────┴───────╯  ╰──────────╯╰───────────┴──────────────┴─────────────┴──────────────┴─────────────╯
+			//  ENCODER PRESS                                                                                              HAT PRESS
+			>;
+			//display-name = "L1";
+			display-name = "NAV";
+			sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOL_DN>;
+		};
 
-            sensor-bindings = <&rsr_vol &rsr_trans>;
-            display-name = "LAYER1";
-        };
+		// Layer2 Simbolos
+		layer_2 {
+			bindings = <
+			/* + _Symb Layer2: Simbolos / Tmux: (rojo) Pendientes:
+			.-------.--------.--------.--------.--------.--------.                               .--------.--------.--------.--------.--------.--------.
+			|       |+TmuxW1 |+TmuxW2 |+TmuxW3 |+TmuxW4 |+TmuxW5 |                               |+TmuxW6 |+TmuxW7 |+TmuxW8 |+TmuxW9 |+TmuxLW |+TmuxZoom| ya deberian estar.
+			|-------+--------+--------+--------+--------+--------|                               |--------+--------+--------+--------+--------+--------|
+			|       |        |        |        |        |        |                               |        |        |        |        |+TmuxPrev|+TmuxLstPne| ya deberia estar.
+			|-------+--------+--------+--------+--------+--------|                               |--------+--------+--------+--------+--------+--------|
+			|       |        |        |        |        |        |                               |        |        |        |        |        |        |
+			|-------+--------+--------+--------+--------+--------|                               |--------+--------+--------+--------+--------+--------|
+			|       |        |        |        |        |        |                               |        |        |        |        |+TmuxNext|        | ya deberia estar.
+			'-------'--------+--------+--------+--------'--------'                               '--------'--------+--------+--------+--------'--------'
+			|                |        |        |.--------.--------.--------.           .--------.--------.--------.|        |        |
+			|                |        |        ||        |        |        |           |        |        |        ||        |        |
+			|                '--------'--------'|        |        |        |           |        |        |        |'--------'--------'
+			|                                   '--------'--------'--------'           '--------'--------'--------' */
+			// ╭─────────┬────────────┬──────────────┬────────────┬─────────────┬───────────╮            ╭───────────────╮   ╭───────────┬───────────┬───────────┬───────────┬───────────┬─────────────────╮
+			    &___      &TmuxW1      &TmuxW2        &TmuxW3      &TmuxW4       &TmuxW5                  &trans              &TmuxW6     &TmuxW7     &TmuxW8     &TmuxW9     &TmuxLW     &TmuxZoom
+			// ├─────────┼────────────┼──────────────┼────────────┼─────────────┼───────────┤            ├───────────────┤   ├───────────┼───────────┼───────────┼───────────┼───────────┼─────────────────┤
+				 &___      &___         &___           &e_a         &___          &___                     &___                &___        &u_a        &i_a        &o_a        &TmuxPrev   &TmuxLstPne
+			// ├─────────┼────────────┼──────────────┼────────────┼─────────────┼───────────┤            ├───────────────┤   ├───────────┼───────────┼───────────┼───────────┼───────────┼─────────────────┤
+				 &a_a      &kp LS(N1)   &kp LS(N2)     &kp LS(N3)   &kp LS(N4)    &kp LS(N5)               &___                &kp LS(N6)  &kp LS(N7)  &kp LS(N8)  &kp LS(N9)  &kp LS(N0)  &kp DOUBLE_QUOTES
+			// ├─────────┼────────────┼──────────────┼────────────┼─────────────┼───────────┤            ├───────────────┤   ├───────────┼───────────┼───────────┼───────────┼───────────┼─────────────────┤
+				 &kp TILDE &___         &___           &___         &___          &___                     &___                &enie			&___        &___        &___        &TmuxNext      &kp PIPE
+			// ╰┬────────┼────────────┼──────────────┼────────────┼─────────────┼───────────┼────────╮   ┼──────────╮╭───┴───┼───────────┼───────────┼───────────┼───────────┼───────────┴─────────────────╯
+				  &___                  &kp LBRC       &kp RBRC     &kp BACKSPACE &kp SPACE   &kp TAB      &___        &kp ESC &kp SPACE   &kp ENTER   &kp UNDER   &kp PLUS
+			//  ╰────────╯            ╰──────────────┴────────────┴─────────────┴───────────┴────────╯   ╰──────────╯╰───────┴───────────┴───────────┴───────────┴───────────╯
+			//  ENCODER PRESS                                                                                  HAT PRESS
+			>;
+			display-name = "SYMB";
+			sensor-bindings = <&scroll_encoder>;
+		};
 
-        layer_2 {
-            bindings = <
-&kp TILDE  &bt BT_SEL 0  &bt BT_SEL 1    &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4    &mmv MOVE_UP     &kp F6  &kp F7  &kp F8      &kp F9     &kp F10      &trans
-&trans     &bt BT_CLR    &bt BT_CLR_ALL  &trans        &trans        &trans          &mmv MOVE_DOWN   &trans  &trans  &kp F11     &kp F12    &kp UNDER    &kp PLUS
-&trans     &out OUT_USB  &out OUT_BLE    &trans        &trans        &trans          &mmv MOVE_LEFT   &trans  &trans  &trans      &trans     &kp LBRC     &kp RBRC
-&trans     &sys_reset    &trans          &bootloader   &trans        &trans          &mmv MOVE_RIGHT  &trans  &trans  &sys_reset  &soft_off  &bootloader  &trans
-&trans     &trans        &trans          &trans        &trans        &trans          &mkp LCLK        &trans  &trans  &trans      &trans     &trans
-            >;
 
-            display-name = "LAYER2";
-            sensor-bindings = <&rsr_vol &rsr_trans>;
-        };
+		// Layer3 NumPad vim
+		layer_3 {
+			bindings = <
+			/* + Layer: Appl Shortcuts Vim / Numeric Pad (celeste)
+			.----------.----------.----------.----------.----------.----------.                           .----------.----------.----------.----------.----------.----------.
+			|          | +VimBuf1 | +VimBuf2 | +VimBuf3 | +VimBuf4 | +VimBuf5 |                           | +VimBuf6 | +VimBuf7 | +VimBuf8 | +VimBuf9 | VimListBf|          |
+			|          |          |          |          |          |          |                           |          |          |          |          | <c-l>    |          |
+			|----------+----------+----------+----------+----------+----------|                           |----------+----------+----------+----------+----------+----------|
+			| ViTabSpc |-ViExit   |-ViWrite  |          | Virt App | Terminal |                           | Calc     |          |          |          | +VimPrev |          |
+			| ExpandTab| Esc :q!  | Esc :up  |          |          |          |                           |          |          |          |          |          |          |
+			|----------+----------+----------+----------+----------+----------|                           |----------+----------+----------+----------+----------+----------|
+			|ReadlineVi|          |          |          | Offi Vim | Offi WBrw|                           | ViList   |          |          |          | ViCln    |          |
+			|Screenrc  |          |          |          |          |          |                           | :set list|          |          |          | Esc :    |          |
+			|----------+----------+----------+----------+----------+----------|                           |----------+----------+----------+----------+----------+----------|
+			| SetOVi   |          |-ViWrExit | ClipPad  | My Vim   | My WBrw  |                           | ViNoH    |          |          |          | +VimNext |          |
+			| set -o vi|          | Esc :x!  |          |          |          |                           | Esc :noh |          |          |          |          |          |
+			'----------'----------+----------+----------+----------'----------'                           '----------'----------+----------+----------+----------'----------'
+			|                     |          |          |.----------.----------.---------.     .---------.----------.----------.|          |          |
+			|                     |          |          ||          |          |         |     |         |          |          ||          |          |
+			|                     '----------'----------'|          |          |         |     |         |          |          |'----------'----------'
+			|                                            '----------'----------'---------'     '---------'----------'----------' */
+			// ╭─────────┬────────────┬──────────────┬────────────┬─────────────┬─────────╮            ╭───────────────╮   ╭─────────┬─────────┬─────────┬─────────┬───────────┬───────────────╮
+				 &___      &VimBuf1     &VimBuf2       &VimBuf3     &VimBuf4      &VimBuf5               &___                &VimBuf6  &VimBuf7  &VimBuf8  &VimBuf9  &trans      &kp C_VOL_UP
+			// ├─────────┼────────────┼──────────────┼────────────┼─────────────┼─────────┤            ├───────────────┤   ├─────────┼─────────┼─────────┼─────────┼───────────┼───────────────┤
+				 &trans    &ViExit       &ViWrite      &___         &trans        &trans                 &___                &trans    &kp N6    &kp N8    &kp N9    &VimPrev    &kp C_VOL_DN
+			// ├─────────┼────────────┼──────────────┼────────────┼─────────────┼─────────┤            ├───────────────┤   ├─────────┼─────────┼─────────┼─────────┼───────────┼───────────────┤
+				 &trans    &___         &___           &___         &trans        &trans                 &___                &trans    &kp N4    &kp N5    &kp N6    &trans      &kp C_MUTE
+			// ├─────────┼────────────┼──────────────┼────────────┼─────────────┼─────────┤            ├───────────────┤   ├─────────┼─────────┼─────────┼─────────┼───────────┼───────────────┤
+				 &trans    &___         &ViWrExit      &trans       &trans        &trans                 &___                &trans    &kp N1    &kp N2    &kp N3    &VimNext    &kp F20	//XF86AudioMicMute
+			// ╰┬────────┼────────────┼──────────────┼────────────┼─────────────┼─────────┼────────╮   ┼──────────╮╭───┴───┼─────────┼─────────┼─────────┼─────────┼───────────┴───────────────╯
+				  &___                  &kp LBRC       &kp RBRC     &kp BACKSPACE &kp SPACE &kp TAB      &___        &kp ESC &kp SPACE &kp ENTER &kp N0    &kp DOT
+			//  ╰────────╯            ╰──────────────┴────────────┴─────────────┴─────────┴────────╯   ╰──────────╯╰───────┴─────────┴─────────┴─────────┴─────────╯
+			//  ENCODER PRESS                                                                                  HAT PRESS
+			>;
+			display-name = "NUMB";
+			sensor-bindings = <&scroll_encoder>;
+		};
 
-        layer_3 {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-            >;
-
-            display-name = "LAYER3";
-            sensor-bindings = <&rsr_vol &rsr_trans>;
-        };
-
-        layer_4 {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-            >;
-
-            display-name = "LAYER4";
-            sensor-bindings = <&rsr_vol &rsr_trans>;
-        };
-    };
+		// Setup Layer
+		layer_4 {
+			bindings = <
+			/*
+			.-----------.-----------.-----------.-----------.-----------.-----------.                                  .-----------.-----------.-----------.-----------.-----------.-----------.
+			| BT_Clear  | BT_1      | BT_2      | BT_3      | BT_4      | BT_5      |                                  |           |           |           |           |           | BT Mngr   |
+			|-----------+-----------+-----------+-----------+-----------+-----------|                                  |-----------+-----------+-----------+-----------+-----------+-----------|
+			|           | Sleep     | ScrLock   |           | Moni BrDn | Moni BrUp |                                  | RgbTogle  |RgbBriUp   |           |           | Print Scr | NMEditor  |
+			|-----------+-----------+-----------+-----------+-----------+-----------|                                  |-----------+-----------+-----------+-----------+-----------+-----------|
+			| SoftOff   | OutUSB    | OutBle    |           | Note BrDn | Note BrUp |                                  | RgbEfectUp|RgbBriDn   |           |           | Print Wind| guvcview  |
+			|-----------+-----------+-----------+-----------+-----------+-----------|                                  |-----------+-----------+-----------+-----------+-----------+-----------|
+			| SysReset  |BT_Clear_All |         |           |           | RloadHkey | BootLoader|                                  | RgbEfectDn|RgbSPI     |           |           |           | Audio Ctrl|
+			'-----------'-----------+-----------+-----------+-----------'-----------'                                  '-----------'-----------+-----------+-----------+-----------'-----------'
+			|                       |           |           |.------------------------------------.      .------------.-----------------------.| Windows   | Linux     | Windows/Linux Mode, para cambiar el set de linux a windows.
+			|                       |           |           || Nav       | Symb      | NumPad     |      | NumPad     | Symb      | Nav       ||           |           |
+			|                       '-----------'-----------'|           |           |            |      |            |           |           |'-----------'-----------'
+			|                                                '-----------'-----------'------------'      '------------'-----------'-----------' */
+			// ╭──────────────┬──────────────┬──────────────┬────────────┬────────────┬────────────╮                 ╭───────────────╮  ╭───────────────┬───────────────┬──────────┬──────────┬───────────┬──────────╮
+				 &bt BT_CLR     &bt BT_SEL 0   &bt BT_SEL 1   &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4                   &___               &___            &___            &___       &___       &___        &trans
+			// ├──────────────┼──────────────┼──────────────┼────────────┼────────────┼────────────┤                 ├───────────────┤  ├───────────────┼───────────────┼──────────┼──────────┼───────────┼──────────┤
+				 &___           &trans         &trans         &___         &trans       &trans                         &___               &rgb_ug RGB_TOG &rgb_ug RGB_BRI &___       &___       &trans      &trans
+			// ├──────────────┼──────────────┼──────────────┼────────────┼────────────┼────────────┤                 ├───────────────┤  ├───────────────┼───────────────┼──────────┼──────────┼───────────┼──────────┤
+				 &soft_off      &out OUT_USB   &out OUT_BLE   &___         &trans       &trans                         &___               &rgb_ug RGB_EFF &rgb_ug RGB_BRD &___       &___       &trans      &out OUT_BLE
+			// ├──────────────┼──────────────┼──────────────┼────────────┼────────────┼────────────┤                 ├───────────────┤  ├───────────────┼───────────────┼──────────┼──────────┼───────────┼──────────┤
+				 &sys_reset     &bt BT_CLR_ALL &___           &___         &trans       &bootloader                    &___               &rgb_ug RGB_EFR &rgb_ug RGB_SPI &___       &___       &___        &out OUT_USB
+			// ╰┬─────────────┼──────────────┼──────────────┼────────────┼────────────┼────────────┼─────────────╮   ┼──────────╮╭───┴──┼───────────────┼───────────────┼──────────┼──────────┼───────────┼──────────┼
+				  &trans                       &___           &___         &trans       &trans       &trans            &___        &trans &trans          &trans          &trans     &trans
+			//  ╰────────╯                   ╰──────────────┴────────────┴────────────┴────────────┴─────────────╯   ╰──────────╯╰──────┴───────────────┴───────────────┴──────────┴──────────╯
+			//  ENCODER PRESS                                                                                       HAT PRESS
+			>;
+			display-name = "SET";
+			sensor-bindings = <&scroll_encoder>;
+		};
+	};
 };
