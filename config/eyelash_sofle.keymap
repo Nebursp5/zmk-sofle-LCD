@@ -1,8 +1,4 @@
 // Nebur
-
-#define ZMK_POINTING_DEFAULT_MOVE_VAL 1200  // 600
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 25   // 10
-
 #include <input/processors.dtsi>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 #include <behaviors.dtsi>
@@ -12,93 +8,506 @@
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/pointing.h>
 #include <dt-bindings/zmk/rgb.h>
+// no estoy seguro de que sea correcto, pero lo agrego por si acaso:
+//#include <dt-bindings/zmk/ext_power.h>
 
+
+// Para poner una tecla en la configuracion que no toma ninguna accion.
+# define ___ none
+
+// Mouse:
+// Velocidad:
+//#define ZMK_POINTING_DEFAULT_MOVE_VAL 1200  // 600
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 600
+//#define ZMK_POINTING_DEFAULT_SCRL_VAL 25   // 10
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 10
 &mmv_input_listener { input-processors = <&zip_xy_scaler 2 1>; };
-
 &msc_input_listener { input-processors = <&zip_scroll_scaler 2 1>; };
-
 &msc {
-    acceleration-exponent = <1>;      // 0
-    time-to-max-speed-ms = <100>;       // 300
-    delay-ms = <0>;                   // 0
+	acceleration-exponent = <1>;      // 0
+	time-to-max-speed-ms = <100>;       // 300
+	delay-ms = <0>;                   // 0
 };
-
 &mmv {
-    time-to-max-speed-ms = <500>;
-    acceleration-exponent = <1>;
-    trigger-period-ms = <16>;
+	time-to-max-speed-ms = <500>;
+	acceleration-exponent = <1>;
+	trigger-period-ms = <16>;
 };
 
+// Tiempo que debe mantenerse apreteada la tecla de soft_off para que apague el teclado: 2seg.
 &soft_off { hold-time-ms = <2000>; };
 
+
 / {
-    scroll_encoder: scroll_encoder {
-        compatible = "zmk,behavior-sensor-rotate";
-        #sensor-binding-cells = <0>;
-        bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
 
-        tap-ms = <100>;
-    };
+	scroll_encoder: scroll_encoder {
+		compatible = "zmk,behavior-sensor-rotate";
+		#sensor-binding-cells = <0>;
+		bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
+		tap-ms = <100>;
+	};
 
-    behaviors {
-        rsr_vol: rsr_vol {
-            compatible = "zmk,behavior-runtime-sensor-rotate";
-            #sensor-binding-cells = <0>;
-            tap-ms = <5>;
-            cw-binding = <&kp C_VOL_UP>;
-            ccw-binding = <&kp C_VOL_DN>;
-        };
+	behaviors {
+	// https://zmk.dev/docs/keymaps/behaviors/hold-tap
 
-        rsr_trans: rsr_trans {
-            compatible = "zmk,behavior-runtime-sensor-rotate";
-            #sensor-binding-cells = <0>;
-            tap-ms = <0>;
-        };
-    };
+		lt: layer_tap {
+			compatible = "zmk,behavior-hold-tap";
+			#binding-cells = <2>;
+			flavor = "tap-preferred";
+			tapping-term-ms = <200>;
+			bindings = <&mo>, <&kp>;
+			display-name = "Layer-Tap";
+		};
 
-    combos {
-        compatible = "zmk,combos";
+		hm: homerow_mods {
+			compatible = "zmk,behavior-hold-tap";
+			#binding-cells = <2>;
+			tapping-term-ms = <200>;
+			quick-tap-ms = <0>;
+			flavor = "balanced";
+			bindings = <&kp>, <&kp>;
+		};
 
-        softoff {
-            bindings = <&soft_off>;
-            key-positions = <14 28 40>;
-        };
-    };
+		mt: mod_tap {
+			compatible = "zmk,behavior-hold-tap";
+			#binding-cells = <2>;
+			flavor = "hold-preferred";
+			tapping-term-ms = <200>;
+			bindings = <&kp>, <&kp>;
+			display-name = "Mod-Tap";
+		};
 
-    macros {
-        SHIFT_MCLK: SHIFT_MCLK {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings =
-                <&macro_press>,
-                <&kp LEFT_SHIFT>,
-                <&macro_press>,
-                <&mkp MB3>,
-                <&macro_pause_for_release>,
-                <&macro_release>,
-                <&kp LEFT_SHIFT &mkp MB3>;
+		// hold and Tap (between Normal keys)
+		ht: Hold_tap {
+			compatible = "zmk,behavior-hold-tap";
+			#binding-cells = <2>;
+			flavor = "tap-preferred";
+			tapping-term-ms = <200>;
+			bindings = <&kp>, <&kp>;
+		};
+		// Estos venia con el LCD:
+		rsr_vol: rsr_vol {
+			compatible = "zmk,behavior-runtime-sensor-rotate";
+			#sensor-binding-cells = <0>;
+			tap-ms = <5>;
+			cw-binding = <&kp C_VOL_UP>;
+			ccw-binding = <&kp C_VOL_DN>;
+		};
+		rsr_trans: rsr_trans {
+			compatible = "zmk,behavior-runtime-sensor-rotate";
+			#sensor-binding-cells = <0>;
+			tap-ms = <0>;
+		};
 
-            label = "SHIFT_MCLK";
-        };
-    };
+	};
 
-    keymap {
-        compatible = "zmk,keymap";
+	macros {
 
-        layer0 {
-            bindings = <
-&kp ESC     &kp N1     &kp N2        &kp N3        &kp N4  &kp N5       &kp UP_ARROW     &kp N6     &kp N7     &kp N8     &kp N9           &kp N0      &kp BACKSPACE
-&kp TAB     &kp Q      &kp W         &kp E         &kp R   &kp T        &kp DOWN_ARROW   &kp Y      &kp U      &kp I      &kp O            &kp P       &kp BSLH
-&kp CAPS    &kp A      &kp S         &kp D         &kp F   &kp G        &kp LEFT_ARROW   &kp H      &kp J      &kp K      &kp L            &kp SEMI    &kp APOS
-&kp LSHFT   &kp Z      &kp X         &kp C         &kp V   &kp B        &kp RIGHT_ARROW  &kp N      &kp M      &kp COMMA  &kp DOT          &kp FSLH    &kp ENTER
-&kp C_MUTE  &kp LCTRL  &kp LEFT_GUI  &kp LEFT_ALT  &mo 1   &kp SPACE    &kp ENTER        &kp SPACE  &kp ENTER  &mo 2      &kp RIGHT_SHIFT  &kp DELETE
-            >;
+		TmuxW1: TmuxW1 {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp LC(LA(A))>,
+				<&macro_tap &kp N1>;
+		};
+		TmuxW2: TmuxW2 {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp LC(LA(A))>,
+				<&macro_tap &kp N2>;
+		};
+		TmuxW3: TmuxW3 {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp LC(LA(A))>,
+				<&macro_tap &kp N3>;
+		};
+		TmuxW4: TmuxW4 {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp LC(LA(A))>,
+				<&macro_tap &kp N4>;
+		};
+		TmuxW5: TmuxW5 {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp LC(LA(A))>,
+				<&macro_tap &kp N5>;
+		};
+		TmuxW6: TmuxW6 {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp LC(LA(A))>,
+				<&macro_tap &kp N6>;
+		};
+		TmuxW7: TmuxW7 {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp LC(LA(A))>,
+				<&macro_tap &kp N7>;
+		};
+		TmuxW8: TmuxW8 {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp LC(LA(A))>,
+				<&macro_tap &kp N8>;
+		};
+		TmuxW9: TmuxW9 {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp LC(LA(A))>,
+				<&macro_tap &kp N9>;
+		};
+		TmuxLW: TmuxLW {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp LC(LA(A))>,
+				<&macro_tap &kp LC(LA(A))>;
+		};
+		TmuxZoom: TmuxZoom {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp LC(LA(A))>,
+				<&macro_tap &kp Z>;
+		};
+		TmuxPrev: TmuxPrev {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp LC(LA(A))>,
+				<&macro_tap &kp P>;
+		};
+		TmuxNext: TmuxNext {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp LC(LA(A))>,
+				<&macro_tap &kp N>;
+		};
+		TmuxLstPne: TmuxLstPne {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp LC(LA(A))>,
+				<&macro_tap &kp SEMI>;
+		};
+		VimBuf1: VimBuf1 {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp ESC>,
+				<&macro_tap &kp COLON>,
+				<&macro_tap &kp B>,
+				<&macro_tap &kp N1>,
+				<&macro_tap &kp ENTER>;
+		};
+		VimBuf2: VimBuf2 {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp ESC>,
+				<&macro_tap &kp COLON>,
+				<&macro_tap &kp B>,
+				<&macro_tap &kp N2>,
+				<&macro_tap &kp ENTER>;
+		};
+		VimBuf3: VimBuf3 {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp ESC>,
+				<&macro_tap &kp COLON>,
+				<&macro_tap &kp B>,
+				<&macro_tap &kp N3>,
+				<&macro_tap &kp ENTER>;
+		};
+		VimBuf4: VimBuf4 {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp ESC>,
+				<&macro_tap &kp COLON>,
+				<&macro_tap &kp B>,
+				<&macro_tap &kp N4>,
+				<&macro_tap &kp ENTER>;
+		};
+		VimBuf5: VimBuf5 {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp ESC>,
+				<&macro_tap &kp COLON>,
+				<&macro_tap &kp B>,
+				<&macro_tap &kp N5>,
+				<&macro_tap &kp ENTER>;
+		};
+		VimBuf6: VimBuf6 {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp ESC>,
+				<&macro_tap &kp COLON>,
+				<&macro_tap &kp B>,
+				<&macro_tap &kp N6>,
+				<&macro_tap &kp ENTER>;
+		};
+		VimBuf7: VimBuf7 {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp ESC>,
+				<&macro_tap &kp COLON>,
+				<&macro_tap &kp B>,
+				<&macro_tap &kp N7>,
+				<&macro_tap &kp ENTER>;
+		};
+		VimBuf8: VimBuf8 {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp ESC>,
+				<&macro_tap &kp COLON>,
+				<&macro_tap &kp B>,
+				<&macro_tap &kp N8>,
+				<&macro_tap &kp ENTER>;
+		};
+		VimBuf9: VimBuf9 {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp ESC>,
+				<&macro_tap &kp COLON>,
+				<&macro_tap &kp B>,
+				<&macro_tap &kp N9>,
+				<&macro_tap &kp ENTER>;
+		};
+		VimPrev: VimPrev {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp ESC>,
+				<&macro_tap &kp COLON>,
+				<&macro_tap &kp B>,
+				<&macro_tap &kp P>,
+				<&macro_tap &kp ENTER>;
+		};
+		VimNext: VimNext {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp ESC>,
+				<&macro_tap &kp COLON>,
+				<&macro_tap &kp B>,
+				<&macro_tap &kp N>,
+				<&macro_tap &kp ENTER>;
+		};
+		ViWrite: ViWrite {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp ESC>,
+				<&macro_tap &kp COLON>,
+				<&macro_tap &kp U>,
+				<&macro_tap &kp P>,
+				<&macro_tap &kp ENTER>;
+		};
+		ViExit: ViExit {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp ESC>,
+				<&macro_tap &kp COLON>,
+				<&macro_tap &kp Q>,
+				<&macro_tap &kp EXCLAMATION>,
+				<&macro_tap &kp ENTER>;
+		};
+		ViWrExit: ViWrExit {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp ESC>,
+				<&macro_tap &kp COLON>,
+				<&macro_tap &kp W>,
+				<&macro_tap &kp Q>,
+				<&macro_tap &kp EXCLAMATION>,
+				<&macro_tap &kp ENTER>;
+		};
+		enie: enie {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			wait-ms = <10>;
+			tap-ms = <10>;
+			bindings =
+				<&macro_press &kp LCTRL>,
+				<&macro_press &kp LSHFT>,
+				<&macro_tap &kp U>,
+				<&macro_release &kp LSHFT>,
+				<&macro_release &kp LCTRL>,
+				<&macro_tap &kp N0>,
+				<&macro_tap &kp N0>,
+				<&macro_tap &kp F>,
+				<&macro_tap &kp N1>,
+				<&macro_tap &kp ENTER>;
+		};
+		a_a: a_a {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			wait-ms = <10>;
+			tap-ms = <10>;
+			bindings =
+				<&macro_press &kp LCTRL>,
+				<&macro_press &kp LSHFT>,
+				<&macro_tap &kp U>,
+				<&macro_release &kp LSHFT>,
+				<&macro_release &kp LCTRL>,
+				<&macro_tap &kp N0>,
+				<&macro_tap &kp N0>,
+				<&macro_tap &kp E>,
+				<&macro_tap &kp N1>,
+				<&macro_tap &kp ENTER>;
+		};
+		e_a: e_a {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			wait-ms = <10>;
+			tap-ms = <10>;
+			bindings =
+				<&macro_press &kp LCTRL>,
+				<&macro_press &kp LSHFT>,
+				<&macro_tap &kp U>,
+				<&macro_release &kp LSHFT>,
+				<&macro_release &kp LCTRL>,
+				<&macro_tap &kp N0>,
+				<&macro_tap &kp N0>,
+				<&macro_tap &kp E>,
+				<&macro_tap &kp N9>,
+				<&macro_tap &kp ENTER>;
+		};
+		i_a: i_a {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			wait-ms = <10>;
+			tap-ms = <10>;
+			bindings =
+				<&macro_press &kp LCTRL>,
+				<&macro_press &kp LSHFT>,
+				<&macro_tap &kp U>,
+				<&macro_release &kp LSHFT>,
+				<&macro_release &kp LCTRL>,
+				<&macro_tap &kp N0>,
+				<&macro_tap &kp N0>,
+				<&macro_tap &kp E>,
+				<&macro_tap &kp D>,
+				<&macro_tap &kp ENTER>;
+		};
+		o_a: o_a {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			wait-ms = <10>;
+			tap-ms = <10>;
+			bindings =
+				<&macro_press &kp LCTRL>,
+				<&macro_press &kp LSHFT>,
+				<&macro_tap &kp U>,
+				<&macro_release &kp LSHFT>,
+				<&macro_release &kp LCTRL>,
+				<&macro_tap &kp N0>,
+				<&macro_tap &kp N0>,
+				<&macro_tap &kp F>,
+				<&macro_tap &kp N3>,
+				<&macro_tap &kp ENTER>;
+		};
+		u_a: u_a {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			wait-ms = <10>;
+			tap-ms = <10>;
+			bindings =
+				<&macro_press &kp LCTRL>,
+				<&macro_press &kp LSHFT>,
+				<&macro_tap &kp U>,
+				<&macro_release &kp LSHFT>,
+				<&macro_release &kp LCTRL>,
+				<&macro_tap &kp N0>,
+				<&macro_tap &kp N0>,
+				<&macro_tap &kp F>,
+				<&macro_tap &kp A>,
+				<&macro_tap &kp ENTER>;
+		};
 
-            sensor-bindings = <&rsr_vol &rsr_trans>;
-            display-name = "LAYER0";
-        };
+		// Esta vino con el LCD:
+		SHIFT_MCLK: SHIFT_MCLK {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				 <&macro_press>,
+				 <&kp LEFT_SHIFT>,
+				 <&macro_press>,
+				 <&mkp MB3>,
+				 <&macro_pause_for_release>,
+				 <&macro_release>,
+				 <&kp LEFT_SHIFT &mkp MB3>;
+			label = "SHIFT_MCLK";
+		};
 
-        layer_1 {
+	};
+
+
+
+	keymap {
+		compatible = "zmk,keymap";
+
+		// Qwerty Layer0:
+		layer0 {
+			bindings = <
+			/* Pendientes Layer0:
+			.--------.--------.--------.--------.--------.--------.                                    .--------.--------.--------.---------.--------.--------.
+			| Vim_5  |        |        |        |        |        |                                    |        |        |        |         |        | F11    |
+			|        |        |        |        |        |        |                                    |        |        |        |         |        |dwmFull | Este ya deberia estar.
+			|--------+--------+--------+--------+--------+--------|                                    |--------+--------+--------+---------+--------+--------|
+			|        |        |        |        |        |        |                                    |        |        |        |         |        | Del    | Este ya deberia estar.
+			|        |        |        |        |        |        |                                    |        |        |        |         |        |dwmTiled|
+			|--------+--------+--------+--------+--------+--------|                                    |--------+--------+--------+---------+--------+--------|
+			|        |        |        |        |        |        |                                    |        |        |        |         |        | ' "    |
+			|        |        |        |        |        |        |                                    |        |        |        |         |        |dwmFloat| Ya deberia estar.
+			|--------+--------+--------+--------+--------+--------|                                    |--------+--------+--------+---------+--------+--------|
+			|        |        |        |        |        |        |                                    |        |        |        |         |        | \ |    |este ya deberia estar.
+			|        |        |        |        |        |        |                                    |        |        |        |         |        |dwmgap  |
+			'--------'--------+--------+--------+--------'--------'                                    '--------'--------+--------+---------+--------'--------'
+			|                 |        |        |.--------.--------.--------.                .--------.--------.--------.|        |         |
+			|                 |        |        ||        |        |        |                |        |        |        ||        |         |
+			|                 '--------'--------'|        |        |        |                |        |        |        |'--------'---------'
+			|                                    '--------'--------'--------'                '--------'--------'--------' */
+
+			// ╭─────────┬────────────┬────────────────┬─────────────────┬───────────────┬───────────╮             ╭───────────────╮       ╭───────────┬───────────┬──────────┬───────────┬───────────────┬─────────────────╮
+				 &___      &ht F1 N1    &ht F2 N2        &ht F3 N3         &ht F4 N4       &ht F5 N5                 &msc SCRL_UP            &ht F6 N6   &ht F7 N7   &ht F8 N8  &ht F9 N9   &ht F10 N0      &ht LG(M) F11
+			// ├─────────┼────────────┼────────────────┼─────────────────┼───────────────┼───────────┤             ├───────────────┤       ├───────────┼───────────┼──────────┼───────────┼───────────────┼─────────────────┤
+				 &mo 4     &kp Q        &kp W            &kp E             &kp R           &kp T                     &msc SCRL_DOWN          &kp Y       &kp U       &kp I      &kp O       &kp P           &ht LG(T) DELETE
+			// ├─────────┼────────────┼────────────────┼─────────────────┼───────────────┼───────────┤             ├───────────────┤       ├───────────┼───────────┼──────────┼───────────┼───────────────┼─────────────────┤
+				 &kp CAPS  &hm LSHIFT A &hm LCTRL S      &hm LALT D        &hm LGUI F      &kp G                     &msc SCRL_LEFT          &kp H       &hm RGUI J  &hm RALT K &hm RCTRL L &hm RSHIFT SEMI &ht LG(F) APOS
+			// ├─────────┼────────────┼────────────────┼─────────────────┼───────────────┼───────────┤             ├───────────────┤       ├───────────┼───────────┼──────────┼───────────┼───────────────┼─────────────────┤
+				 &kp GRAVE &kp Z        &kp X            &kp C             &kp V           &kp B                     &msc SCRL_RIGHT         &kp N       &kp M       &kp COMMA  &kp DOT     &kp FSLH        &ht LG(APOS) BSLH
+			// ╰┬────────┴─┬──────────┼────────────────┼─────────────────┼───────────────┼───────────┼─────────╮   ┼──────────╮╭───────────┼───────────┼───────────┼──────────┼───────────┼───────────────┼─────────────────╯
+				  &kp C_MUTE            &kp LEFT_BRACKET &kp RIGHT_BRACKET &lt 1 BACKSPACE &lt 2 SPACE &lt 3 TAB     &mkp LCLK    &lt 3 ESC  &lt 2 SPACE &lt 1 ENTER &kp MINUS  &kp EQUAL
+			//  ╰──────────╯          ╰────────────────┴─────────────────┴───────────────┴───────────┴─────────╯   ╰──────────╯╰───────────┴───────────┴───────────┴──────────┴───────────╯
+			//  ENCODER PRESS                                                                                       HAT PRESS
+			>;
+			sensor-bindings = <&inc_dec_kp C_VOLUME_UP C_VOL_DN>;
+			//display-name = "L0";
+			display-name = "BASE";
+		};
+
+		layer_1 {
             bindings = <
 &kp GRAVE   &kp F1           &kp F2          &kp F3           &kp F4           &kp F5             &mmv MOVE_UP     &kp F6           &kp F7           &kp F8      &kp F9     &kp F10           &trans
 &trans      &kp GRAVE        &mkp LCLK       &mkp MCLK        &mkp RCLK        &mkp MB4           &mmv MOVE_DOWN   &kp PG_UP        &kp END          &kp UP      &kp HOME   &kp MINUS         &kp EQUAL
