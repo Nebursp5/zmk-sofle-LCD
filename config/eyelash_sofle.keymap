@@ -414,7 +414,6 @@
 			compatible = "zmk,behavior-macro";
 			#binding-cells = <0>;
 			bindings =
-			SEND_STRING("  set -o vi ; export EDITOR=vi "SS_TAP(X_ENTER));
 				<&macro_tap &kp SPACE>,
 				<&macro_tap &kp S>,
 				<&macro_tap &kp E>,
