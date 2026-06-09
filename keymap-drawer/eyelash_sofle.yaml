@@ -207,16 +207,16 @@ layers:
   - '&VimBuf7'
   - '&VimBuf8'
   - '&VimBuf9'
-  - {t: '$$mdi:transfer$$', type: trans}
+  - '&VimListBf'
   - $$mdi:volume-high$$
-  - {t: '$$mdi:transfer$$', type: trans}
+  - '&ViTabSpc'
   - '&ViExit'
   - '&ViWrite'
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - {t: '$$mdi:transfer$$', type: trans}
-  - {t: '$$mdi:transfer$$', type: trans}
+  - Meh+R
+  - Meh+T
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - {t: '$$mdi:transfer$$', type: trans}
+  - Meh+Y
   - {t: '6', s: ^}
   - {t: '8', s: '*'}
   - {t: '9', s: (}
@@ -226,23 +226,23 @@ layers:
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - {t: '$$mdi:transfer$$', type: trans}
-  - {t: '$$mdi:transfer$$', type: trans}
+  - Meh+F
+  - Meh+G
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - {t: '$$mdi:transfer$$', type: trans}
+  - '&ViList'
   - {t: '4', s: $}
   - {t: '5', s: '%'}
   - {t: '6', s: ^}
-  - {t: '$$mdi:transfer$$', type: trans}
+  - '&ViCln'
   - $$mdi:volume-off$$
-  - {t: '$$mdi:transfer$$', type: trans}
+  - '&SetOVi'
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - '&ViWrExit'
-  - {t: '$$mdi:transfer$$', type: trans}
-  - {t: '$$mdi:transfer$$', type: trans}
-  - {t: '$$mdi:transfer$$', type: trans}
+  - Meh+C
+  - Meh+V
+  - Meh+B
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - {t: '$$mdi:transfer$$', type: trans}
+  - '&ViNoH'
   - {t: '1', s: '!'}
   - {t: '2', s: '@'}
   - {t: '3', s: '#'}
