@@ -66,7 +66,7 @@ layers:
   - {t: '-', s: _}
   - {t: '=', s: +}
   NAV:
-  - {t: '`', s: '~'}
+  - {t: BASE, h: toggle}
   - {t: Gui+1, s: Gui+!}
   - {t: Gui+2, s: Gui+@}
   - {t: Gui+3, s: Gui+#}
@@ -131,7 +131,7 @@ layers:
   - Ins
   - $$mdi:backspace-reverse-outline$$
   SYMB:
-  - {t: '$$mdi:minus-circle-outline$$', type: none}
+  - {t: BASE, h: toggle}
   - '&TmuxW1'
   - '&TmuxW2'
   - '&TmuxW3'
@@ -196,7 +196,7 @@ layers:
   - _
   - +
   NUMB:
-  - {t: '$$mdi:minus-circle-outline$$', type: none}
+  - {t: BASE, h: toggle}
   - '&VimBuf1'
   - '&VimBuf2'
   - '&VimBuf3'
@@ -298,7 +298,7 @@ layers:
   - RGB BRD
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - OUT BLE
-  - {t: '$$mdi:transfer$$', type: trans}
+  - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:backup-restore$$', type: bootloader}
   - BT CLR ALL
@@ -316,12 +316,12 @@ layers:
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - {t: '$$mdi:transfer$$', type: trans}
-  - {t: '$$mdi:transfer$$', type: trans}
-  - {t: '$$mdi:transfer$$', type: trans}
+  - {t: NAV, h: toggle}
+  - {t: SYMB, h: toggle}
+  - {t: NUMB, h: toggle}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - {t: '$$mdi:transfer$$', type: trans}
-  - {t: '$$mdi:transfer$$', type: trans}
-  - {t: '$$mdi:transfer$$', type: trans}
+  - {t: NUMB, h: toggle}
+  - {t: SYMB, h: toggle}
+  - {t: NAV, h: toggle}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
