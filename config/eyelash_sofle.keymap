@@ -14,11 +14,12 @@
 
 // Para poner una tecla en la configuracion que no toma ninguna accion.
 # define ___ none
+
 // Layers:
 #define BASE 0
 #define NAV 1
-#define BASE 2
-#define BASE 3
+#define SYMB 2
+#define NUMB 3
 #define SET 4
 
 // Mouse:
