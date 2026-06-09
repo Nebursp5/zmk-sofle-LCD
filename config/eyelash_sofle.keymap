@@ -449,7 +449,7 @@
 			compatible = "zmk,behavior-macro";
 			label = "hello_world";
 			#binding-cells = <0>;
-			bindings
+			bindings =
 				<&macro_text " set -o vi ; export EDITOR=vi ">;
 		};
 
