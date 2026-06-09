@@ -342,6 +342,118 @@
 				<&macro_tap &kp EXCLAMATION>,
 				<&macro_tap &kp ENTER>;
 		};
+		ViCln: ViCln {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp ESC>,
+				<&macro_tap &kp COLON>;
+		};
+		ViList: ViList {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp ESC>,
+				<&macro_tap &kp COLON>,
+				<&macro_tap &kp S>,
+				<&macro_tap &kp E>,
+				<&macro_tap &kp T>,
+				<&macro_tap &kp SPACE>,
+				<&macro_tap &kp L>,
+				<&macro_tap &kp I>,
+				<&macro_tap &kp S>,
+				<&macro_tap &kp T>,
+				<&macro_tap &kp ENTER>;
+		};
+		ViNoH: ViNoH      {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp ESC>,
+				<&macro_tap &kp COLON>,
+				<&macro_tap &kp N>,
+				<&macro_tap &kp O>,
+				<&macro_tap &kp H>,
+				<&macro_tap &kp ENTER>;
+		};
+		VimListBf: VimListBf {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp ESC>,
+				<&macro_tap &kp COLON>,
+				<&macro_tap &kp B>,
+				<&macro_tap &kp U>,
+				<&macro_tap &kp F>,
+				<&macro_tap &kp F>,
+				<&macro_tap &kp E>,
+				<&macro_tap &kp R>,
+				<&macro_tap &kp S>,
+				<&macro_tap &kp ENTER>;
+		};
+		ViTabSpc: ViTabSpc {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+				<&macro_tap &kp ESC>,
+				<&macro_tap &kp COLON>,
+				<&macro_tap &kp S>,
+				<&macro_tap &kp E>,
+				<&macro_tap &kp T>,
+				<&macro_tap &kp SPACE>,
+				<&macro_tap &kp E>,
+				<&macro_tap &kp X>,
+				<&macro_tap &kp P>,
+				<&macro_tap &kp A>,
+				<&macro_tap &kp N>,
+				<&macro_tap &kp D>,
+				<&macro_tap &kp EXCLAMATION>,
+				<&macro_tap &kp ENTER>;
+		};
+
+/*
+		SetOVi: SetOVi {
+			compatible = "zmk,behavior-macro";
+			#binding-cells = <0>;
+			bindings =
+			SEND_STRING("  set -o vi ; export EDITOR=vi "SS_TAP(X_ENTER));
+				<&macro_tap &kp SPACE>,
+				<&macro_tap &kp S>,
+				<&macro_tap &kp E>,
+				<&macro_tap &kp T>,
+				<&macro_tap &kp SPACE>,
+				<&macro_tap &kp MINUS>,
+				<&macro_tap &kp O>,
+				<&macro_tap &kp SPACE>,
+				<&macro_tap &kp V>,
+				<&macro_tap &kp I>,
+				<&macro_tap &kp SEMI>,
+				<&macro_tap &kp E>,
+				<&macro_tap &kp X>,
+				<&macro_tap &kp P>,
+				<&macro_tap &kp O>,
+				<&macro_tap &kp R>,
+				<&macro_tap &kp T>,
+				<&macro_tap &kp SEMI>,
+				<&macro_tap &kp E>,
+				<&macro_tap &kp E>,
+				<&macro_tap &kp E>,
+				<&macro_tap &kp N>,
+				<&macro_tap &kp D>,
+				<&macro_tap &kp EXCLAMATION>,
+				<&macro_tap &kp ENTER>;
+		};
+*/
+
+		SetOVi: SetOVi {
+			compatible = "zmk,behavior-macro";
+			label = "hello_world";
+			#binding-cells = <0>;
+			bindings
+				= <&macro_text " set -o vi ; export EDITOR=vi ">;
+		};
+
+
 		enie: enie {
 			compatible = "zmk,behavior-macro";
 			#binding-cells = <0>;
@@ -583,33 +695,33 @@
 			bindings = <
 			/* + Layer: Appl Shortcuts Vim / Numeric Pad (celeste)
 			.----------.----------.----------.----------.----------.----------.                           .----------.----------.----------.----------.----------.----------.
-			|          | +VimBuf1 | +VimBuf2 | +VimBuf3 | +VimBuf4 | +VimBuf5 |                           | +VimBuf6 | +VimBuf7 | +VimBuf8 | +VimBuf9 | VimListBf|          |
+			|          | +VimBuf1 | +VimBuf2 | +VimBuf3 | +VimBuf4 | +VimBuf5 |                           | +VimBuf6 | +VimBuf7 | +VimBuf8 | +VimBuf9 |-VimListBf|          |
 			|          |          |          |          |          |          |                           |          |          |          |          | <c-l>    |          |
 			|----------+----------+----------+----------+----------+----------|                           |----------+----------+----------+----------+----------+----------|
-			| ViTabSpc |-ViExit   |-ViWrite  |          | Virt App | Terminal |                           | Calc     |          |          |          | +VimPrev |          |
+			|-ViTabSpc |+ViExit   |+ViWrite  |          |-Virt App |-Terminal |                           |-Calc     |          |          |          |+VimPrev  |          |
 			| ExpandTab| Esc :q!  | Esc :up  |          |          |          |                           |          |          |          |          |          |          |
 			|----------+----------+----------+----------+----------+----------|                           |----------+----------+----------+----------+----------+----------|
-			|ReadlineVi|          |          |          | Offi Vim | Offi WBrw|                           | ViList   |          |          |          | ViCln    |          |
+			|ReadlineVi|          |          |          |-Offi Vim |-Offi WBrw|                           |-ViList   |          |          |          |-ViCln    |          |
 			|Screenrc  |          |          |          |          |          |                           | :set list|          |          |          | Esc :    |          |
 			|----------+----------+----------+----------+----------+----------|                           |----------+----------+----------+----------+----------+----------|
-			| SetOVi   |          |-ViWrExit | ClipPad  | My Vim   | My WBrw  |                           | ViNoH    |          |          |          | +VimNext |          |
+			|-SetOVi   |          |+ViWrExit |-ClipPad  |-My Vim   |-My WBrw  |                           |-ViNoH    |          |          |          |+VimNext  |          |
 			| set -o vi|          | Esc :x!  |          |          |          |                           | Esc :noh |          |          |          |          |          |
 			'----------'----------+----------+----------+----------'----------'                           '----------'----------+----------+----------+----------'----------'
 			|                     |          |          |.----------.----------.---------.     .---------.----------.----------.|          |          |
 			|                     |          |          ||          |          |         |     |         |          |          ||          |          |
 			|                     '----------'----------'|          |          |         |     |         |          |          |'----------'----------'
 			|                                            '----------'----------'---------'     '---------'----------'----------' */
-			// ╭─────────┬────────────┬──────────────┬────────────┬─────────────┬─────────╮            ╭───────────────╮   ╭─────────┬─────────┬─────────┬─────────┬───────────┬───────────────╮
-				 &___      &VimBuf1     &VimBuf2       &VimBuf3     &VimBuf4      &VimBuf5               &___                &VimBuf6  &VimBuf7  &VimBuf8  &VimBuf9  &trans      &kp C_VOL_UP
-			// ├─────────┼────────────┼──────────────┼────────────┼─────────────┼─────────┤            ├───────────────┤   ├─────────┼─────────┼─────────┼─────────┼───────────┼───────────────┤
-				 &trans    &ViExit       &ViWrite      &___         &trans        &trans                 &___                &trans    &kp N6    &kp N8    &kp N9    &VimPrev    &kp C_VOL_DN
-			// ├─────────┼────────────┼──────────────┼────────────┼─────────────┼─────────┤            ├───────────────┤   ├─────────┼─────────┼─────────┼─────────┼───────────┼───────────────┤
-				 &trans    &___         &___           &___         &trans        &trans                 &___                &trans    &kp N4    &kp N5    &kp N6    &trans      &kp C_MUTE
-			// ├─────────┼────────────┼──────────────┼────────────┼─────────────┼─────────┤            ├───────────────┤   ├─────────┼─────────┼─────────┼─────────┼───────────┼───────────────┤
-				 &trans    &___         &ViWrExit      &trans       &trans        &trans                 &___                &trans    &kp N1    &kp N2    &kp N3    &VimNext    &kp F20	//XF86AudioMicMute
-			// ╰┬────────┼────────────┼──────────────┼────────────┼─────────────┼─────────┼────────╮   ┼──────────╮╭───┴───┼─────────┼─────────┼─────────┼─────────┼───────────┴───────────────╯
-				  &___                  &kp LBRC       &kp RBRC     &kp BACKSPACE &kp SPACE &kp TAB      &___        &kp ESC &kp SPACE &kp ENTER &kp N0    &kp DOT
-			//  ╰────────╯            ╰──────────────┴────────────┴─────────────┴─────────┴────────╯   ╰──────────╯╰───────┴─────────┴─────────┴─────────┴─────────╯
+			// ╭─────────┬────────┬─────────┬─────────────────┬─────────────────┬─────────────────╮          ╭───────────────╮   ╭─────────────────┬─────────┬─────────┬─────────┬───────────┬───────────────╮
+				 &___      &VimBuf1 &VimBuf2  &VimBuf3          &VimBuf4          &VimBuf5                     &___                &VimBuf6          &VimBuf7  &VimBuf8  &VimBuf9  &VimListBf  &kp C_VOL_UP
+			// ├─────────┼────────┼─────────┼─────────────────┼─────────────────┼─────────────────┤          ├───────────────┤   ├─────────────────┼─────────┼─────────┼─────────┼───────────┼───────────────┤
+				 &ViTabSpc &ViExit   &ViWrite &___              &kp LC(LA(LS(R))) &kp LC(LA(LS(T)))            &___                &kp LC(LA(LS(Y))) &kp N6    &kp N8    &kp N9    &VimPrev    &kp C_VOL_DN
+			// ├─────────┼────────┼─────────┼─────────────────┼─────────────────┼─────────────────┤          ├───────────────┤   ├─────────────────┼─────────┼─────────┼─────────┼───────────┼───────────────┤
+				 &trans    &___     &___      &___              &kp LC(LA(LS(F))) &kp LC(LA(LS(G)))            &___                &ViList	          &kp N4    &kp N5    &kp N6    &ViCln      &kp C_MUTE
+			// ├─────────┼────────┼─────────┼─────────────────┼─────────────────┼─────────────────┤          ├───────────────┤   ├─────────────────┼─────────┼─────────┼─────────┼───────────┼───────────────┤
+				 &SetOVi    &___     &ViWrExit &kp LC(LA(LS(C))) &kp LC(LA(LS(V))) &kp LC(LA(LS(B)))            &___                &ViNoH	          &kp N1    &kp N2    &kp N3    &VimNext    &kp F20	//XF86AudioMicMute
+			// ╰┬────────┼────────┼─────────┼─────────────────┼─────────────────┼─────────────────┼────────╮ ├──────────╮╭───┴───┼─────────────────┼─────────┼─────────┼─────────┼───────────┴───────────────╯
+				  &___              &kp LBRC  &kp RBRC          &kp BACKSPACE     &kp SPACE         &kp TAB    &___        &kp ESC &kp SPACE         &kp ENTER &kp N0    &kp DOT
+			//  ╰─────╯           ╰─────────┴─────────────────┴─────────────────┴─────────────────┴────────╯ ╰──────────╯╰───────┴─────────────────┴─────────┴─────────┴─────────╯
 			//  ENCODER PRESS                                                                                  HAT PRESS
 			>;
 			display-name = "NUMB";
