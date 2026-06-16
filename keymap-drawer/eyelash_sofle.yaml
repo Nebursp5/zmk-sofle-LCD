@@ -273,7 +273,7 @@ layers:
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - {t: '$$mdi:transfer$$', type: trans}
+  - Meh+F11
   - {t: '$$mdi:minus-circle-outline$$', type: held}
   - SLEEP
   - {t: Ctl+Sft+5, s: Ctl+Sft+%}
@@ -286,9 +286,9 @@ layers:
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - $$mdi:printer-outline$$
-  - {t: '$$mdi:transfer$$', type: trans}
+  - Meh+$$mdi:backspace-reverse-outline$$
   - '&soft_off'
-  - OUT USB
+  - {t: '$$mdi:minus-circle-outline$$', type: none}
   - OUT BLE
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:transfer$$', type: trans}
@@ -299,10 +299,10 @@ layers:
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - OUT BLE
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - {t: '$$mdi:transfer$$', type: trans}
+  - {t: Meh+', s: Meh+"}
   - {t: '$$mdi:backup-restore$$', type: bootloader}
   - BT CLR ALL
-  - {t: '$$mdi:minus-circle-outline$$', type: none}
+  - OUT USB
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - Meh+K
   - $$mdi:progress-download$$
@@ -312,7 +312,7 @@ layers:
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - OUT USB
   - {t: '$$mdi:minus-circle-outline$$', type: none}
-  - {t: '$$mdi:transfer$$', type: trans}
+  - {t: Meh+\, s: Meh+|}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
   - {t: '$$mdi:minus-circle-outline$$', type: none}
